@@ -6,6 +6,7 @@ import { applyClockworkForces } from './ClockworkFlow';
 import { applyRandomForces } from './Wiggle';
 import { applyFlagellaForce } from './Flagella';
 import { createCells } from './Cell';
+import { setupJawCollision } from './Jaw';
 
 const Game = () => {
     const requestRef = useRef();
@@ -36,6 +37,9 @@ const Game = () => {
         // Create cells and add them to the world
         const cells = createCells(30, engineRef.current);
         Matter.World.add(engineRef.current.world, cells);
+
+        // Set up jaw collision handling
+        setupJawCollision(engineRef.current);
 
         requestRef.current = requestAnimationFrame(animate);
 

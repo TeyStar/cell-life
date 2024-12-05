@@ -1,5 +1,4 @@
 import Matter from 'matter-js';
-import { applyJawAction } from './Jaw';
 
 const teams = [
     { color: 'red', name: 'Red' },
@@ -88,6 +87,7 @@ export const createCells = (numCells) => {
                         label: 'jaw'
                     });
                 }
+                body.cell = cell; // Add reference to the cell
                 bodyParts.push(body);
                 constraints.push(Matter.Constraint.create({
                     bodyA: cell,
@@ -127,17 +127,8 @@ export const createCells = (numCells) => {
             cell.isAlive = true; // Store whether the cell is alive
 
             cells.push(cellComposite);
-
-            // Apply jaw action after the cell composite is created
-            bodyParts.forEach(bodyPart => {
-                if (bodyPart.label === 'jaw') {
-                    applyJawAction(cellComposite);
-                }
-            });
         }
     });
 
     return cells;
 };
-
-
